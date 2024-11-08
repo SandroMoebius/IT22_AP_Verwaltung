@@ -1,5 +1,61 @@
 html {
+
     box-sizing: border-box;
     padding: 0px;
     margin: 0px;
 }
+
+body {
+    background-color: rgb(27, 27, 27) !important;
+}
+/* Register-Page CSS */
+
+main {
+    height: 91vh;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+form {
+    width: 45%;
+    border-radius: 15px;
+    border: 2px solid white;
+    padding: 2rem;
+    margin: 2.5rem;
+}
+
+form label{
+    color: azure;
+}
+
+.doublecolumn {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.doublecolumn div {
+    height: 70px;
+    width: 45%;
+}
+
+.container-fluid a {
+    color: azure !important;
+}
+
+.special-nav {
+    height: 5rem;
+    background-color: rgb(20, 20, 20) !important;
+    box-shadow: 4px 4px 10px rgb(7, 7, 7);
+}
+
+@media (max-width:991px) {
+    main {
+        height: 97vh;
+        display: flex;
+        justify-content: center;
+        align-self: center;
+    }
+}
+/* Register-Page CSS */
