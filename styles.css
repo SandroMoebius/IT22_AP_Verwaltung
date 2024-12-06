@@ -10,13 +10,6 @@ body {
 }
 /* Register-Page CSS */
 
-main {
-    height: 91vh;
-    display: flex;
-    justify-content: center;
-    align-self: center;
-}
-
 form {
     width: 45%;
     border-radius: 15px;
@@ -45,17 +38,34 @@ form label{
 }
 
 .special-nav {
-    height: 5rem;
     background-color: rgb(20, 20, 20) !important;
     box-shadow: 4px 4px 10px rgb(7, 7, 7);
+    padding: 1rem;
+}
+
+.doublecolumn {
+    width: 100%;
+}
+
+@media (min-width:991px) {
+    main {
+        height: 91vh;
+        display: flex;
+        justify-content: center;
+        align-self: center;
+    }
 }
 
 @media (max-width:991px) {
     main {
-        height: 97vh;
+        height: 135vh;
         display: flex;
         justify-content: center;
         align-self: center;
+    }
+
+    form {
+        width: 100%;
     }
 }
 /* Register-Page CSS */
