@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anlegeplatz Buchen</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary special-nav">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+            <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M12 8.4C13.4912 8.4 14.7 7.19117 14.7 5.7C14.7 4.20883 13.4912 3 12 3C10.5088 3 9.3 4.20883 9.3 5.7C9.3 7.19117 10.5088 8.4 12 8.4ZM12 8.4V20.9999M12 20.9999C9.61305 20.9999 7.32387 20.0518 5.63604 18.364C3.94821 16.6761 3 14.3869 3 12H5M12 20.9999C14.3869 20.9999 16.6761 20.0518 18.364 18.364C20.0518 16.6761 21 14.3869 21 12H19"
+                    stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link" href="#">Features</a>
+                <a class="nav-link" href="#">Pricing</a>
+                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<main class="DragDrop-Section">
+    <div id="dropZone" class="dropZone eins">Schiffe hier ablegen</div>
+    <div id="dropZone" class="dropZone zwei">Schiffe hier ablegen</div>
+    <div id="dropZone" class="dropZone drei">Schiffe hier ablegen</div>
+    <div id="dropZone" class="dropZone vier">Schiffe hier ablegen</div>
+
+    <div id="shipBank">
+        <div id="shipTemplate" class="ship" draggable="true">Schiff</div>
+    </div>
+</main>
+<img class="BootSteg" src="assets/StegBoot.png" alt="">
+<section class="Information-Section">
+    <div class="Information-Section--Caption">
+        <h1>WILKOMMEN</h1>
+        <hr>
+    </div>
+    <div class="Information-Section--legend">
+        <span>Informationen zu den Anlegeplätzen</span>
+        <ul class="Information-legend">
+            <li>
+                <span class="color-legend red">
+                </span>
+                <span class="legend-explanation">Gesperrter Anlegeplatz</span>
+            </li>
+            <li>
+                <span class="color-legend blue">
+                </span>
+                <span class="legend-explanation">Belegter Anlegeplatz</span>
+            </li>
+            <li>
+                <span class="color-legend orange">
+                </span>
+                <span class="legend-explanation">Vermieteter Anlegeplatz</span>
+            </li>
+            <li>
+                <span class="color-legend green">
+                </span>
+                <span class="legend-explanation">Verfügbarer Anlegeplatz</span>
+            </li>
+        </ul>
+    </div>
+    <section class="weather-section">
+        <div class="weather-container">
+            <div class="forecast-container" id="forecast"></div>
+        </div>
+    </section>
+    
+    <script>
+        const API_KEY = '80806bf5d1156ce58103521021c3b87f';
+        const forecastContainer = document.getElementById('forecast');
+
+        // Wochentage auf Deutsch
+        const weekdays = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+
+        async function getWeatherForecast(lat, lon) {
+            try {
+                const response = await fetch(
+                    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=de`
+                );
+
+                if (!response.ok) throw new Error(`HTTP Fehler: ${response.status}`);
+
+                const data = await response.json();
+                console.log('Forecast Data:', data);
+
+                // Gruppiere die Daten pro Tag (8 Messungen pro Tag)
+                const dailyData = data.list.filter((item, index) => index % 8 === 0);
+
+                forecastContainer.innerHTML = dailyData.slice(0, 5).map(item => {
+                    const date = new Date(item.dt * 1000);
+                    return `
+                    <div class="forecast-day">
+                        <div class="forecast-date">${weekdays[date.getDay()]}</div>
+                        <img class="forecast-icon" src="https://openweathermap.org/img/wn/${item.weather[0].icon}.png">
+                        <div class="forecast-temp">${Math.round(item.main.temp)}°C</div>
+                        <div class="weather-description">${item.weather[0].description}</div>
+                    </div>
+                `;
+                }).join('');
+
+            } catch (error) {
+                console.error('Fehler:', error);
+                forecastContainer.innerHTML = `<p class="error">Vorhersage nicht verfügbar: ${error.message}</p>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const lat = position.coords.latitude.toFixed(4);
+                    const lon = position.coords.longitude.toFixed(4);
+                    getWeatherForecast(lat, lon);
+                });
+            }
+        });
+
+        let shipsOut = 0;
+            const maxShips = 16;
+            let draggedElement = null;
+
+            const shipTemplate = document.getElementById('shipTemplate');
+            const shipBank = document.getElementById('shipBank');
+            const dropZones = document.querySelectorAll('.dropZone');
+
+            // Funktion zum Hinzufügen von Drag-Events an Schiff-Klone
+            function addCloneDragEvents(clone) {
+                clone.addEventListener('dragstart', function (event) {
+                    event.dataTransfer.setData("text/plain", "shipClone");
+                    draggedElement = clone;
+                });
+                clone.addEventListener('dragend', function (event) {
+                    draggedElement = null;
+                });
+            }
+
+            // Beim Dragstart der Schiff-Vorlage aus der Bank wird geprüft, ob noch Platz ist.
+            shipTemplate.addEventListener('dragstart', function (event) {
+                if (shipsOut >= maxShips) {
+                    event.preventDefault();
+                    alert("Maximale Anzahl von 16 Schiffen erreicht! Bitte lege ein Schiff zurück.");
+                    return;
+                }
+                event.dataTransfer.setData("text/plain", "ship");
+            });
+
+            // Initialisiert eine DropZone mit den nötigen Event-Listenern
+            function initDropZone(zone) {
+                zone.addEventListener('dragover', function (event) {
+                    event.preventDefault();
+                });
+
+                zone.addEventListener('drop', function (event) {
+                    event.preventDefault();
+                    const data = event.dataTransfer.getData("text/plain");
+
+                    if (data === "ship") {
+                        // Neues Schiff aus der Bank: nur hinzufügen, wenn Limit noch nicht erreicht ist.
+                        if (shipsOut < maxShips) {
+                            const shipClone = shipTemplate.cloneNode(true);
+                            shipClone.removeAttribute("id"); // ID entfernen, um Duplikate zu vermeiden
+                            addCloneDragEvents(shipClone);
+                            zone.appendChild(shipClone);
+                            shipsOut++;
+                        } else {
+                            alert("Maximale Anzahl von 16 Schiffen erreicht!");
+                        }
+                    } else if (data === "shipClone") {
+                        // Schiff-Klon zwischen DropZones verschieben (Reparenting)
+                        if (draggedElement && draggedElement.parentNode !== zone) {
+                            zone.appendChild(draggedElement);
+                        }
+                    }
+                });
+            }
+
+            // Initialisiere alle DropZones
+            dropZones.forEach(zone => initDropZone(zone));
+
+            // Schiff-Bank nimmt auch Schiff-Klone zurück
+            shipBank.addEventListener('dragover', function (event) {
+                event.preventDefault();
+            });
+
+            shipBank.addEventListener('drop', function (event) {
+                event.preventDefault();
+                const data = event.dataTransfer.getData("text/plain");
+                if (data === "shipClone" && draggedElement) {
+                    if (draggedElement.parentNode) {
+                        draggedElement.parentNode.removeChild(draggedElement);
+                        shipsOut--;
+                        draggedElement = null;
+                    }
+                }
+            });
+    </script>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+</body>
+</html>

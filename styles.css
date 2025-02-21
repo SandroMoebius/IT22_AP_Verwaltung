@@ -1,5 +1,4 @@
 html {
-
     box-sizing: border-box;
     padding: 0px;
     margin: 0px;
@@ -38,6 +37,8 @@ form label{
 }
 
 .special-nav {
+    position: relative;
+    z-index: 2;
     background-color: rgb(20, 20, 20) !important;
     box-shadow: 4px 4px 10px rgb(7, 7, 7);
     padding: 1rem;
@@ -45,6 +46,56 @@ form label{
 
 .doublecolumn {
     width: 100%;
+}
+
+.red {
+    background-color: red !important;
+}
+
+.blue {
+    background-color: blue !important;
+}
+
+.orange {
+    background-color: orange !important;
+}
+
+.green {
+    background-color: green !important;
+}
+
+.forecast-container {
+    height: 15rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    background: linear-gradient(to bottom, rgb(126, 212, 255), rgb(55, 188, 255));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.forecast-day {
+    height: 95%;
+    background: rgb(27, 27, 27);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.forecast-icon {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+}
+
+.forecast-temp {
+    color: white;
+    font-weight: bold;
+    margin: 0.5rem 0;
+}
+
+.forecast-date {
+    color: white;
+    font-size: 0.9rem;
 }
 
 @media (min-width:991px) {
@@ -69,3 +120,213 @@ form label{
     }
 }
 /* Register-Page CSS */
+
+/* HomePage-Section CSS */
+@media (min-width:991px) {
+    .DragDrop-Section {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        background: linear-gradient(to bottom, rgb(126, 212, 255), rgb(55, 188, 255));
+    }
+
+    .BootSteg{
+        height: 50rem;
+        width: 100rem;
+        position: absolute;
+        top: 5rem;
+        right: 10vw;
+        z-index: 0;
+    }
+ 
+    .Information-Section {
+        height: 45vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        color: white;
+    }
+
+    .Information-Section--Caption {
+        width: 90%;
+        margin: 2rem 1rem;
+    }
+
+    .Information-Section--legend {
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 0;
+        margin: 0rem 1rem;
+    }
+
+    .Information-Section--legend span{
+        text-decoration: underline;
+        margin-bottom: 2rem;
+    }
+
+    .Information-legend {
+        height: 5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        list-style: none;
+        color: white;
+        padding: 0;
+        margin: 0;
+    }
+
+    .Information-legend li {
+        height: 100%;
+        width: 22.5%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    li .color-legend {
+        display: inline-block;
+        height: 1.5rem;
+        width: 1.5rem;
+        background-color: white;
+        margin: 0 1rem;
+    }
+
+    .legend-explanation {
+        text-decoration: none !important;
+        margin: 0 !important;
+    }
+
+}
+
+@media (max-width:991px) {
+    .DragDrop-Section {
+        height: 70vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        background: linear-gradient(to bottom, rgb(126, 212, 255), rgb(55, 188, 255));
+    }
+    
+    .DragDrop-Section img {
+        display: none;
+    }
+}
+/* HomePage CSS */
+
+/* Schiff-Bank: 100px breit, 200px hoch, zentriert mit Rahmen */
+#shipBank {
+    width: 100px;
+    height: 200px;
+    border: 2px solid #333;
+    background-color: transparent;
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Schiff-Vorlage */
+.ship {
+    width: 60px;
+    height: 60px;
+    background-color: #4CAF50;
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: move;
+    user-select: none;
+}
+
+/* Container als transparentes Rahmenfeld */
+.dropZone.eins{
+    position: relative;
+    top: 14rem;
+    left: 27rem;
+    z-index: 10;
+    width: 100px;
+    /* Breite des Rechtecks */
+    height: 200px;
+    /* Höhe des Rechtecks (hochkant) */
+    border: 2px dashed #333;
+    /* Rahmen: 2px, gestrichelt, dunkelgrau */
+    background-color: transparent;
+    /* Hintergrund transparent */
+    margin: 20px auto;
+    /* Zentriert auf der Seite */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+    color: #333;
+}
+
+.dropZone.zwei {
+    position: relative;
+    top: 14rem;
+    left: -16.5rem;
+    z-index: 10;
+    width: 100px;
+    /* Breite des Rechtecks */
+    height: 200px;
+    /* Höhe des Rechtecks (hochkant) */
+    border: 2px dashed #333;
+    /* Rahmen: 2px, gestrichelt, dunkelgrau */
+    background-color: transparent;
+    /* Hintergrund transparent */
+    margin: 20px auto;
+    /* Zentriert auf der Seite */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+    color: #333;
+}
+
+.dropZone.drei {
+    position: relative;
+    top: 14rem;
+    left: -35.75rem;
+    z-index: 10;
+    width: 100px;
+    /* Breite des Rechtecks */
+    height: 200px;
+    /* Höhe des Rechtecks (hochkant) */
+    border: 2px dashed #333;
+    /* Rahmen: 2px, gestrichelt, dunkelgrau */
+    background-color: transparent;
+    /* Hintergrund transparent */
+    margin: 20px auto;
+    /* Zentriert auf der Seite */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+    color: #333;
+}
+
+.dropZone.vier {
+    position: relative;
+    top: 14rem;
+    left: -47rem;
+    z-index: 10;
+    width: 100px;
+    /* Breite des Rechtecks */
+    height: 200px;
+    /* Höhe des Rechtecks (hochkant) */
+    border: 2px dashed #333;
+    /* Rahmen: 2px, gestrichelt, dunkelgrau */
+    background-color: transparent;
+    /* Hintergrund transparent */
+    margin: 20px auto;
+    /* Zentriert auf der Seite */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+    color: #333;
+}
